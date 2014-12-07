@@ -1,39 +1,44 @@
 package com.bartek.example.stackoverflow;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 
-public class StackOverflowMainActivity extends ActionBarActivity {
+public class StackOverflowMainActivity extends Activity implements View.OnClickListener {
+
+
+    private String dataToSearch;
+    private EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stack_overflow_main);
+        initButtonOnClickListener();
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_stack_overflow_main, menu);
-        return true;
+    private void initButtonOnClickListener() {
+        findViewById(R.id.search_button).setOnClickListener(this);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void onClick(View v) {
+        editText = (EditText) findViewById(R.id.search_edit_text);
+        dataToSearch = editText.getText().toString();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        passDataToSearchFor();
+    }
 
-        return super.onOptionsItemSelected(item);
+    private void passDataToSearchFor() {
+        Intent intent = new Intent(this, SecondActivity.class);
+        intent.putExtra("key", getDataToSearch());
+        startActivity(intent);
+    }
+
+    public String getDataToSearch() {
+        return dataToSearch;
     }
 }
