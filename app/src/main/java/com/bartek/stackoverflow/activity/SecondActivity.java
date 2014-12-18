@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bartek.stackoverflow.R;
@@ -45,17 +46,14 @@ public class SecondActivity extends ListActivity {
         stringReceived = intentReceive.getStringExtra("key");
     }
 
-
     private void loadData() {
 
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(StackOverflowApi.API_URL)
                 .build();
-//                        "&intitle="+ stringReceived + "&tagged" + stringReceived).build();
 
         StackOverflowApi service = restAdapter.create(StackOverflowApi.class);
         service.getJsonData(stringReceived, stringReceived, new Callback<SearchResults>() {
-//            private DataAdapter listAdapter;
 
             @Override
             public void success(SearchResults results, Response response) {
@@ -71,12 +69,7 @@ public class SecondActivity extends ListActivity {
                 Toast toast = Toast.makeText(getApplicationContext(), "FAILURE", Toast.LENGTH_SHORT);
                 toast.show();
             }
-
-//            public void setListAdapter(DataAdapter listAdapter) {
-//                this.listAdapter = listAdapter;
-//            }
         });
-
     }
 
     public class DataAdapter extends ArrayAdapter<DataHandler> {
@@ -93,9 +86,6 @@ public class SecondActivity extends ListActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-//            position = View.generateViewId();
-            //TODO introduce auto ID generation
-
             final DataHandler dateHandler = getItem(position);
 
             LayoutInflater inflater =
@@ -104,22 +94,20 @@ public class SecondActivity extends ListActivity {
 
             View rowView = inflater.inflate(R.layout.item_row, parent, false);
 
-//            TextView userName = (TextView) rowView.findViewById(R.id.user_name);
-//            userName.setText(dateHandler.getOwner().getDisplayName());
-//
-//            TextView title = (TextView) rowView.findViewById(R.id.title);
-//            title.setText(dateHandler.getPostTitle());
-
             ImageView userImage = (ImageView) rowView.findViewById(R.id.user_image);
             Picasso.with(context)
                     .load(dateHandler.getOwner().getProfileImage())
                     .into(userImage);
 
-//            TextView score = (TextView) rowView.findViewById(R.id.answers);
-//            score.setText(dateHandler.getScore());
-//
-//            TextView tags = (TextView) rowView.findViewById(R.id.tags);
-//            tags.setText(dateHandler.getTags().toString());
+            TextView userName = (TextView) rowView.findViewById(R.id.user_name);
+            userName.setText(dateHandler.getOwner().getDisplayName());
+
+            TextView title = (TextView) rowView.findViewById(R.id.title);
+            title.setText(dateHandler.getPostTitle());
+
+            TextView answerCount = (TextView) rowView.findViewById(R.id.answer_count);
+            answerCount.setText("Answers: " + dateHandler.answerCount());
+
 
             return rowView;
         }
