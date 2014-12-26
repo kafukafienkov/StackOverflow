@@ -12,6 +12,12 @@ public class DataHandler {
     private String postTitle;
     @SerializedName("answer_count")
     private String answerCount;
+    @SerializedName("link")
+    private String linkUrl;
+
+    public String getLinkUrl() {
+        return linkUrl;
+    }
 
     public PostOwner getOwner() {
         return owner;

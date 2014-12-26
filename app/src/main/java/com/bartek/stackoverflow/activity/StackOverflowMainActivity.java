@@ -8,10 +8,7 @@ import android.widget.EditText;
 
 import com.bartek.stackoverflow.R;
 
-
 public class StackOverflowMainActivity extends Activity implements View.OnClickListener {
-
-// last ok 19:55 15/12/2014
 
     private String dataToSearch;
     private EditText editText;

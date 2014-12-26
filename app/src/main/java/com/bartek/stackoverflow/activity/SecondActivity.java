@@ -39,6 +39,7 @@ public class SecondActivity extends ListActivity {
 
         receiveDataToSearchFor();
         loadData();
+
     }
 
     private void receiveDataToSearchFor() {
@@ -75,12 +76,13 @@ public class SecondActivity extends ListActivity {
     public class DataAdapter extends ArrayAdapter<DataHandler> {
 
         private final Context context;
-        private final int resourceId;
+        //        private final int resourceId;
+        private String linkUrl;
 
         public DataAdapter(Context context, int resource, List<DataHandler> objects) {
             super(context, resource, objects);
             this.context = context;
-            this.resourceId = resource;
+//            this.resourceId = resource;
         }
 
         @Override
@@ -108,8 +110,25 @@ public class SecondActivity extends ListActivity {
             TextView answerCount = (TextView) rowView.findViewById(R.id.answer_count);
             answerCount.setText("Answers: " + dateHandler.answerCount());
 
+            linkUrl = dateHandler.getLinkUrl();
+
+            rowView.setClickable(true);
+            rowView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, BrowserActivity.class);
+                    intent.putExtra("secondActivityKey", linkUrl);
+                    startActivity(intent);
+                    System.out.println(linkUrl);
+                }
+            });
 
             return rowView;
         }
     }
 }
+
+
+
+
+
