@@ -76,13 +76,11 @@ public class SecondActivity extends ListActivity {
     public class DataAdapter extends ArrayAdapter<DataHandler> {
 
         private final Context context;
-        //        private final int resourceId;
         private String linkUrl;
 
         public DataAdapter(Context context, int resource, List<DataHandler> objects) {
             super(context, resource, objects);
             this.context = context;
-//            this.resourceId = resource;
         }
 
         @Override
@@ -97,8 +95,10 @@ public class SecondActivity extends ListActivity {
             View rowView = inflater.inflate(R.layout.item_row, parent, false);
 
             ImageView userImage = (ImageView) rowView.findViewById(R.id.user_image);
+            userImage.setImageResource(R.drawable.ic_launcher);
             Picasso.with(context)
                     .load(dateHandler.getOwner().getProfileImage())
+                    .placeholder(getResources().getDrawable(R.drawable.ic_launcher))
                     .into(userImage);
 
             TextView userName = (TextView) rowView.findViewById(R.id.user_name);
