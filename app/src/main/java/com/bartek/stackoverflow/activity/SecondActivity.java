@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.bartek.stackoverflow.R;
+import com.bartek.stackoverflow.model.MyListFragment;
 
 /**
  * Created by Bartek on 2014-12-04.
@@ -50,7 +51,6 @@ public class SecondActivity extends ActionBarActivity {
         getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_ENTER_MASK)
                 .replace(R.id.my_fragment_holder, new MyListFragment(), "MY_LIST").commit();
     }
-
 
     public String receiveDataToSearchFor() {
         Intent intentReceive = getIntent();

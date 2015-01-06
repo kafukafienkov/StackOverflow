@@ -1,6 +1,5 @@
-package com.bartek.stackoverflow.activity;
+package com.bartek.stackoverflow.model;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bartek.stackoverflow.R;
-import com.bartek.stackoverflow.model.SearchResults;
+import com.bartek.stackoverflow.activity.BrowserActivity;
+import com.bartek.stackoverflow.activity.StackOverflowMainActivity;
 import com.bartek.stackoverflow.rest.DataHandler;
 import com.bartek.stackoverflow.rest.StackOverflowApi;
 import com.squareup.picasso.Picasso;
@@ -36,11 +36,6 @@ public class MyListFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         loadData();
         return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
     }
 
     public void loadData() {
@@ -75,7 +70,8 @@ public class MyListFragment extends ListFragment {
 
             @Override
             public void failure(RetrofitError error) {
-                Toast toast = Toast.makeText(getActivity(), "FAILURE - CHECK YOUR INTERNET CONNECTION",
+                Toast toast = Toast.makeText(getActivity(),
+                        "FAILURE - CHECK YOUR INTERNET CONNECTION",
                         Toast.LENGTH_SHORT);
                 toast.show();
 
@@ -88,7 +84,6 @@ public class MyListFragment extends ListFragment {
         Intent intent = new Intent(getActivity(), StackOverflowMainActivity.class);
         startActivity(intent);
     }
-
 
     public class DataAdapter extends ArrayAdapter<DataHandler> {
 
@@ -136,7 +131,6 @@ public class MyListFragment extends ListFragment {
                     Intent intent = new Intent(context, BrowserActivity.class);
                     intent.putExtra("secondActivityKey", linkUrl);
                     startActivity(intent);
-                    System.out.println(linkUrl);
                 }
             });
 

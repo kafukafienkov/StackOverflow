@@ -19,7 +19,6 @@ public class StackOverflowMainActivity extends ActionBarActivity implements View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stack_overflow_main);
         initButtonOnClickListener();
-
     }
 
     private void initButtonOnClickListener() {
@@ -30,7 +29,6 @@ public class StackOverflowMainActivity extends ActionBarActivity implements View
     public void onClick(View v) {
         editText = (EditText) findViewById(R.id.search_edit_text);
         dataToSearch = editText.getText().toString();
-
         passDataToSearchFor();
     }
 
@@ -52,6 +50,4 @@ public class StackOverflowMainActivity extends ActionBarActivity implements View
         menu.findItem(R.id.action_back).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
-
-
 }
