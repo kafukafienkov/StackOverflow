@@ -14,9 +14,9 @@ public interface StackOverflowApi {
     public static final String API_URL = "https://api.stackexchange.com/2.2";
     public static final String KEY = "ekZxs*4VlUsQl8E986b6nA((";
 
-    @GET("/search?order=desc&sort=activity&site=stackoverflow")
+    @GET("/search?pagesize=100&order=desc&sort=relevance&site=stackoverflow")
     public void getJsonData(@Query("intitle") String intitle,
-                            @Query("tagged") String tagged,
+//                            @Query("tagged") String tagged,
                             Callback<SearchResults> callback);
 
 }
