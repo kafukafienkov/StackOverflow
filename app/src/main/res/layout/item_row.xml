@@ -46,7 +46,7 @@
         android:layout_toRightOf="@+id/user_image"
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="Title: "
+        android:text="@string/title"
         android:textSize="18sp"
         android:textStyle="bold" />
 

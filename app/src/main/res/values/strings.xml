@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">StackOverflow Search</string>
+    <string name="app_name" translatable="false">StackOverflow Search</string>
     <string name="action_refresh">Refresh</string>
     <string name="action_back">Return</string>
+    <string name="title">Title</string>
 
 </resources>
