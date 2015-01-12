@@ -71,7 +71,7 @@ public class MyListFragment extends ListFragment {
             @Override
             public void failure(RetrofitError error) {
                 Toast toast = Toast.makeText(getActivity(),
-                        "FAILURE - CHECK YOUR INTERNET CONNECTION",
+                        "ERROR WHILE LOADING THE DATA",
                         Toast.LENGTH_SHORT);
                 toast.show();
 
