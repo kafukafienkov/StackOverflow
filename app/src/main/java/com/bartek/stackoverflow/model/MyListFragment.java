@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.bartek.stackoverflow.R;
 import com.bartek.stackoverflow.activity.BrowserActivity;
+import com.bartek.stackoverflow.activity.StackOverflowMainActivity;
 import com.bartek.stackoverflow.rest.DataHandler;
 import com.bartek.stackoverflow.rest.StackOverflowApi;
 import com.squareup.picasso.Picasso;
@@ -31,6 +32,8 @@ import retrofit.client.Response;
  */
 public class MyListFragment extends ListFragment {
 
+    public static final String KEY_SECOND = "com.bartek.stackoverflow.model";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         loadData();
@@ -43,7 +46,7 @@ public class MyListFragment extends ListFragment {
                 .build();
 
         StackOverflowApi service = restAdapter.create(StackOverflowApi.class);
-        String dataToSearchFor = getActivity().getIntent().getStringExtra("key");
+        String dataToSearchFor = getActivity().getIntent().getStringExtra(StackOverflowMainActivity.KEY_FIRST);
         service.getJsonData(dataToSearchFor, new Callback<SearchResults>() {
 
             @Override
@@ -134,7 +137,7 @@ public class MyListFragment extends ListFragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, BrowserActivity.class);
-                    intent.putExtra("secondActivityKey", linkUrl);
+                    intent.putExtra(KEY_SECOND, linkUrl);
                     startActivity(intent);
                 }
             });

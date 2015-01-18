@@ -11,6 +11,7 @@ import com.bartek.stackoverflow.R;
 
 public class StackOverflowMainActivity extends ActionBarActivity implements View.OnClickListener {
 
+    public static final String KEY_FIRST = "com.bartek.stackoverflow.activity";
     private String dataToSearch;
 
     @Override
@@ -33,7 +34,7 @@ public class StackOverflowMainActivity extends ActionBarActivity implements View
 
     private void passDataToSearchFor() {
         Intent intent = new Intent(this, SecondActivity.class);
-        intent.putExtra("key", getDataToSearch());
+        intent.putExtra(KEY_FIRST, getDataToSearch());
         startActivity(intent);
     }
 

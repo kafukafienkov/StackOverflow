@@ -9,27 +9,25 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 
 import com.bartek.stackoverflow.R;
+import com.bartek.stackoverflow.model.MyListFragment;
 
 /**
  * author: Bartek
  */
 public class BrowserActivity extends ActionBarActivity {
 
-    private WebView webView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.web_view);
         String url = getUrlToFollow();
-        webView = (WebView) findViewById(R.id.webview);
+        WebView webView = (WebView) findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(url);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_stack_overflow_main, menu);
         menu.findItem(R.id.action_refresh).setVisible(false);
@@ -49,8 +47,7 @@ public class BrowserActivity extends ActionBarActivity {
 
     private String getUrlToFollow() {
         Intent dataReceived = getIntent();
-        String urlToFollow = dataReceived.getStringExtra("secondActivityKey");
-        return urlToFollow;
+        return dataReceived.getStringExtra(MyListFragment.KEY_SECOND);
     }
 
     @Override

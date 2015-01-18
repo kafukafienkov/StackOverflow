@@ -54,7 +54,7 @@ public class SecondActivity extends ActionBarActivity {
 
     public String receiveDataToSearchFor() {
         Intent intentReceive = getIntent();
-        stringReceived = intentReceive.getStringExtra("key");
+        stringReceived = intentReceive.getStringExtra(StackOverflowMainActivity.KEY_FIRST);
         return stringReceived;
     }
 
