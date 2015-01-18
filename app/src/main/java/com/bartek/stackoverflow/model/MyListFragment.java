@@ -77,14 +77,6 @@ public class MyListFragment extends ListFragment {
         });
     }
 
-    static class ViewHolder {
-
-        ImageView userImage;
-        TextView userName;
-        TextView title;
-        TextView answerCount;
-    }
-
     public class DataAdapter extends ArrayAdapter<DataHandler> {
 
         private final Context context;
@@ -140,7 +132,64 @@ public class MyListFragment extends ListFragment {
             });
             return convertView;
         }
-    }    static class ViewHolder {
+    }    
+    
+    public class DataAdapter extends ArrayAdapter<DataHandler> {
+
+        private final Context context;
+
+        public DataAdapter(Context context, int resource, List<DataHandler> objects) {
+            super(context, resource, objects);
+            this.context = context;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            ViewHolder viewHolder;
+
+            if (convertView == null) {
+                LayoutInflater inflater =
+                        (LayoutInflater) context.getSystemService
+                                (Context.LAYOUT_INFLATER_SERVICE);
+
+                convertView = inflater.inflate(R.layout.item_row, parent, false);
+
+                viewHolder = new ViewHolder();
+                viewHolder.userImage = (ImageView) convertView.findViewById(R.id.user_image);
+                viewHolder.userName = (TextView) convertView.findViewById(R.id.user_name);
+                viewHolder.title = (TextView) convertView.findViewById(R.id.title);
+                viewHolder.answerCount = (TextView) convertView.findViewById(R.id.answer_count);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+
+            final DataHandler dateHandler = getItem(position);
+
+            viewHolder.userImage.setImageResource(R.drawable.ic_launcher);
+            Picasso.with(context)
+                    .load(dateHandler.getOwner().getProfileImage())
+                    .placeholder(getResources().getDrawable(R.drawable.ic_launcher))
+                    .into(viewHolder.userImage);
+            viewHolder.userName.setText(dateHandler.getOwner().getDisplayName());
+            viewHolder.title.setText(dateHandler.getPostTitle());
+            viewHolder.answerCount.setText(context.getString(R.string.answers) + dateHandler.answerCount());
+
+            final String linkUrl = dateHandler.getLinkUrl();
+
+            convertView.setClickable(true);
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, BrowserActivity.class);
+                    intent.putExtra("secondActivityKey", linkUrl);
+                    startActivity(intent);
+                }
+            });
+            return convertView;
+        }
+    }        static class ViewHolder {
 
         ImageView userImage;
         TextView userName;
