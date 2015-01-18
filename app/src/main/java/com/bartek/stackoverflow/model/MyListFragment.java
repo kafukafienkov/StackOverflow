@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.bartek.stackoverflow.R;
 import com.bartek.stackoverflow.activity.BrowserActivity;
-import com.bartek.stackoverflow.activity.StackOverflowMainActivity;
 import com.bartek.stackoverflow.rest.DataHandler;
 import com.bartek.stackoverflow.rest.StackOverflowApi;
 import com.squareup.picasso.Picasso;
@@ -38,7 +37,7 @@ public class MyListFragment extends ListFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    public void loadData() {
+    private void loadData() {
         final RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(StackOverflowApi.API_URL)
                 .build();
@@ -63,32 +62,32 @@ public class MyListFragment extends ListFragment {
                             getActivity(), "NO RESULTS FOUND", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
-
-                    goBackToMainActivity();
+                    getActivity().finish();
                 }
             }
 
             @Override
             public void failure(RetrofitError error) {
                 Toast toast = Toast.makeText(getActivity(),
-                        "ERROR WHILE LOADING THE DATA",
+                        "ERROR WHILE LOADING DATA",
                         Toast.LENGTH_SHORT);
                 toast.show();
-
-                goBackToMainActivity();
+                getActivity().finish();
             }
         });
     }
 
-    private void goBackToMainActivity() {
-        Intent intent = new Intent(getActivity(), StackOverflowMainActivity.class);
-        startActivity(intent);
+    static class ViewHolder {
+
+        ImageView userImage;
+        TextView userName;
+        TextView title;
+        TextView answerCount;
     }
 
     public class DataAdapter extends ArrayAdapter<DataHandler> {
 
         private final Context context;
-        private String linkUrl;
 
         public DataAdapter(Context context, int resource, List<DataHandler> objects) {
             super(context, resource, objects);
@@ -98,34 +97,40 @@ public class MyListFragment extends ListFragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
+            ViewHolder viewHolder;
+
+            if (convertView == null) {
+                LayoutInflater inflater =
+                        (LayoutInflater) context.getSystemService
+                                (Context.LAYOUT_INFLATER_SERVICE);
+
+                convertView = inflater.inflate(R.layout.item_row, parent, false);
+
+                viewHolder = new ViewHolder();
+                viewHolder.userImage = (ImageView) convertView.findViewById(R.id.user_image);
+                viewHolder.userName = (TextView) convertView.findViewById(R.id.user_name);
+                viewHolder.title = (TextView) convertView.findViewById(R.id.title);
+                viewHolder.answerCount = (TextView) convertView.findViewById(R.id.answer_count);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+
             final DataHandler dateHandler = getItem(position);
 
-            LayoutInflater inflater =
-                    (LayoutInflater) context.getSystemService
-                            (Context.LAYOUT_INFLATER_SERVICE);
-
-            View rowView = inflater.inflate(R.layout.item_row, parent, false);
-
-            ImageView userImage = (ImageView) rowView.findViewById(R.id.user_image);
-            userImage.setImageResource(R.drawable.ic_launcher);
+            viewHolder.userImage.setImageResource(R.drawable.ic_launcher);
             Picasso.with(context)
                     .load(dateHandler.getOwner().getProfileImage())
                     .placeholder(getResources().getDrawable(R.drawable.ic_launcher))
-                    .into(userImage);
+                    .into(viewHolder.userImage);
+            viewHolder.userName.setText(dateHandler.getOwner().getDisplayName());
+            viewHolder.title.setText(dateHandler.getPostTitle());
+            viewHolder.answerCount.setText(context.getString(R.string.answers) + dateHandler.answerCount());
 
-            TextView userName = (TextView) rowView.findViewById(R.id.user_name);
-            userName.setText(dateHandler.getOwner().getDisplayName());
+            final String linkUrl = dateHandler.getLinkUrl();
 
-            TextView title = (TextView) rowView.findViewById(R.id.title);
-            title.setText(dateHandler.getPostTitle());
-
-            TextView answerCount = (TextView) rowView.findViewById(R.id.answer_count);
-            answerCount.setText("Answers: " + dateHandler.answerCount());
-
-            linkUrl = dateHandler.getLinkUrl();
-
-            rowView.setClickable(true);
-            rowView.setOnClickListener(new View.OnClickListener() {
+            convertView.setClickable(true);
+            convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, BrowserActivity.class);
@@ -133,8 +138,13 @@ public class MyListFragment extends ListFragment {
                     startActivity(intent);
                 }
             });
-
-            return rowView;
+            return convertView;
         }
+    }    static class ViewHolder {
+
+        ImageView userImage;
+        TextView userName;
+        TextView title;
+        TextView answerCount;
     }
 }

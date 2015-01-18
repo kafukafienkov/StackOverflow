@@ -3,4 +3,5 @@
     <string name="action_refresh">Odśwież</string>
     <string name="action_back">Wstecz</string>
     <string name="title">Tytuł</string>
+    <string name="answers">"Odpowiedzi: "</string>
 </resources>

@@ -12,7 +12,6 @@ import com.bartek.stackoverflow.R;
 public class StackOverflowMainActivity extends ActionBarActivity implements View.OnClickListener {
 
     private String dataToSearch;
-    private EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +26,7 @@ public class StackOverflowMainActivity extends ActionBarActivity implements View
 
     @Override
     public void onClick(View v) {
-        editText = (EditText) findViewById(R.id.search_edit_text);
+        EditText editText = (EditText) findViewById(R.id.search_edit_text);
         dataToSearch = editText.getText().toString();
         passDataToSearchFor();
     }
