@@ -38,7 +38,7 @@ public class StackOverflowMainActivity extends ActionBarActivity implements View
         startActivity(intent);
     }
 
-    public String getDataToSearch() {
+    String getDataToSearch() {
         return dataToSearch;
     }
 

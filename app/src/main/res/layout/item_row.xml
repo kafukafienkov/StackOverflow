@@ -10,7 +10,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="3dip"
-        android:layout_marginRight="3dip" />
+        android:layout_marginRight="3dip"
+        android:contentDescription="@string/user_image" />
 
     <TextView
         android:id="@+id/user_name"
@@ -21,7 +22,7 @@
         android:layout_margin="3dip"
         android:layout_toRightOf="@id/user_image"
         android:gravity="center_vertical"
-        android:text="User Name"
+        android:text="@string/user_name"
         android:textSize="18sp" />
 
     <TextView
@@ -32,7 +33,7 @@
         android:layout_marginRight="5dip"
         android:layout_toRightOf="@id/user_name"
         android:ellipsize="marquee"
-        android:gravity="right"
+        android:gravity="end"
         android:singleLine="true"
         android:textSize="16sp" />
 

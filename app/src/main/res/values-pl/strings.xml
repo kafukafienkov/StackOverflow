@@ -4,4 +4,8 @@
     <string name="action_back">Wstecz</string>
     <string name="title">Tytuł</string>
     <string name="answers">"Odpowiedzi: "</string>
+    <string name="search_stackoverflow">Szukaj na StackOverflow</string>
+    <string name="search">Szukaj</string>
+    <string name="user_name">Nazwa użytkownika</string>
+    <string name="user_image">obraz użytkownika</string>
 </resources>

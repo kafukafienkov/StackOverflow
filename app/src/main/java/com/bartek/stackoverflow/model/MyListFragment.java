@@ -54,7 +54,7 @@ public class MyListFragment extends ListFragment {
                 int itemsListSize = results.getItems().size();
                 if (itemsListSize != 0) {
                     setListAdapter(new DataAdapter(getActivity(),
-                            R.layout.item_row, results.getItems()));
+                            results.getItems()));
 
                     Toast toast = Toast.makeText(
                             getActivity(), "LOADING DATA", Toast.LENGTH_SHORT);
@@ -92,8 +92,8 @@ public class MyListFragment extends ListFragment {
 
         private final Context context;
 
-        public DataAdapter(Context context, int resource, List<DataHandler> objects) {
-            super(context, resource, objects);
+        public DataAdapter(Context context, List<DataHandler> objects) {
+            super(context, R.layout.item_row, objects);
             this.context = context;
         }
 

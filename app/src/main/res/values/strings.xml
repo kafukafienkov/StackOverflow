@@ -6,5 +6,9 @@
     <string name="action_back">Return</string>
     <string name="title">Title</string>
     <string name="answers">"Answers: " </string>
+    <string name="search_stackoverflow">Search on StackOverflow</string>
+    <string name="search">Search</string>
+    <string name="user_name">User Name</string>
+    <string name="user_image">user image</string>
 
 </resources>

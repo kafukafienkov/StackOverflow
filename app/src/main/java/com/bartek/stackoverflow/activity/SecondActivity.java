@@ -47,12 +47,12 @@ public class SecondActivity extends ActionBarActivity {
         introduceFragment();
     }
 
-    public void introduceFragment() {
+    void introduceFragment() {
         getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_ENTER_MASK)
                 .replace(R.id.my_fragment_holder, new MyListFragment(), "MY_LIST").commit();
     }
 
-    public String receiveDataToSearchFor() {
+    String receiveDataToSearchFor() {
         Intent intentReceive = getIntent();
         stringReceived = intentReceive.getStringExtra(StackOverflowMainActivity.KEY_FIRST);
         return stringReceived;
